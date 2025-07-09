@@ -83,7 +83,7 @@ Let's see something working right away! Copy and paste these commands:
 
 ```bash
 # 1. Clone this project
-git clone <your-repository-url>
+git clone https://github.com/lpportorino/timescale-db.git
 cd task
 
 # 2. Start the database
