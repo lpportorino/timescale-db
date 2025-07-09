@@ -1,0 +1,40 @@
+# Environment files
+.env
+.env.local
+
+# Backup files
+backups/
+*.tar.gz
+*.sql
+*.dump
+
+# Database files
+mnt/db/
+pgdata/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# Reports
+explore/reports/
+*.html
+*.pdf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.override.yml

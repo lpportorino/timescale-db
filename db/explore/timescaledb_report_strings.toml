@@ -1,0 +1,490 @@
+# TimescaleDB Report Generator Strings
+# This file contains all user-facing strings used in the application
+
+[general]
+application_name = "TimescaleDB Report Generator"
+version = "1.2.0"
+
+[report]
+title = "TimescaleDB Database Schema"
+generated_on = "Generated on: {date}"
+database_info = "Database: {dbname} @ {host}:{port}"
+timescaledb_version = "TimescaleDB Version: {version}"
+
+[report.overview]
+header = "Overview"
+intro = "This database contains {table_count} tables and uses TimescaleDB for time-series data storage."
+hypertable_count = "There are {hypertable_count} TimescaleDB hypertables and {regular_count} regular tables."
+pattern_description = """The tables primarily store time-series data using a consistent pattern:
+- Most tables have a `time` column with timestamp type
+- Many tables use JSONB columns for flexible schema storage
+- Tables are indexed for efficient time-based queries
+- Some tables have continuous aggregates for downsampling time-series data
+- Journal logs use 5-second timestamp buckets for optimized storage"""
+
+[report.executive_summary]
+header = "Executive Summary"
+database_health = "Database Health Score: {score}/100"
+key_metrics = "Key Metrics"
+total_size = "Total Database Size: {size}"
+hypertable_count = "TimescaleDB Hypertables: {count}"
+continuous_aggregate_count = "Continuous Aggregates: {count}"
+compression_ratio = "Average Compression Ratio: {ratio}%"
+index_count = "Total Indexes: {count}"
+unused_index_count = "Unused Indexes: {count}"
+critical_issues = "Critical Issues"
+warnings = "Warnings"
+optimization_opportunities = "Optimization Opportunities"
+
+[report.performance]
+header = "Performance Metrics"
+query_statistics = "Query Performance Statistics"
+slow_queries = "Slowest Queries (by average execution time)"
+index_usage = "Index Usage Analysis"
+unused_indexes = "Unused Indexes (candidates for removal)"
+table_access_patterns = "Table Access Patterns"
+connection_statistics = "Connection Statistics"
+
+[report.storage]
+header = "Storage Optimization"
+compression_analysis = "Compression Analysis"
+compression_effectiveness = "Compression Effectiveness by Table"
+uncompressed_tables = "Tables Without Compression"
+chunk_distribution = "Data Distribution Over Time"
+growth_trends = "Storage Growth Trends"
+optimization_recommendations = "Storage Optimization Recommendations"
+
+[report.data_quality]
+header = "Data Quality & Integrity"
+validation_errors = "Validation Error Summary"
+common_errors = "Most Common Validation Errors"
+data_completeness = "Data Completeness Analysis"
+null_analysis = "NULL Value Distribution"
+cardinality_analysis = "Column Cardinality Analysis"
+
+[report.sections]
+table_of_contents = "Table of Contents"
+executive_summary = "Executive Summary"
+database_overview = "Database Overview"
+performance_metrics = "Performance Metrics"
+storage_optimization = "Storage Optimization"
+data_quality = "Data Quality & Integrity"
+recommendations = "Recommendations"
+tables_summary = "Tables Summary"
+table_details = "Table Details"
+schema = "Schema"
+indexes = "Indexes"
+hypertables = "TimescaleDB Hypertables"
+continuous_aggregates = "Continuous Aggregates"
+compression_status = "Compression Status"
+policies = "Active Policies"
+purpose_label = "Purpose"
+timescaledb_hypertable_label = "TimescaleDB Hypertable"
+primary_time_column_label = "Primary Time Column"
+contains_json_label = "Contains JSON/JSONB"
+aggregation_views_label = "Aggregation Views"
+continuous_aggregate_chain = "Continuous Aggregate Chain"
+direct_continuous_aggregates = "Direct Continuous Aggregates"
+sourced_directly_from = "Sourced Directly From"
+sourced_from = "Sourced From"
+sourced_indirectly_from = "Sourced Indirectly From"
+via = "via"
+
+[report.table_headers]
+summary_headers = ["Table Name", "TimescaleDB Hypertable", "Primary Time Column", "Contains JSON/JSONB", "Aggregation Views", "Purpose"]
+schema_headers = ["Column", "Type", "Nullable", "Purpose"]
+index_headers = ["Name", "Columns", "Type", "Purpose"]
+
+[report.values]
+yes = "Yes"
+no = "No"
+none = "None"
+na = "N/A"
+primary_key = "PRIMARY KEY"
+unique = "UNIQUE"
+index = "INDEX"
+base_table = "base table"
+level = "level"
+sourced_from = "sourced from"
+
+[html]
+title = "TimescaleDB Report"
+footer = "Generated on {date} by TimescaleDB Report Generator"
+
+[html.style]
+# CSS styling for the HTML report - truncated for brevity
+body = """
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+"""
+headings = """
+    color: #2c3e50;
+    margin-top: 1.5em;
+"""
+h1 = """
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+"""
+h2 = """
+    border-bottom: 1px solid #bdc3c7;
+    padding-bottom: 5px;
+"""
+h3 = """
+    color: #16a085;
+"""
+table = """
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+"""
+
+[table_purposes]
+alerts = "System-wide alerts and notifications for critical events. Records power module alarms, temperature warnings, and other subsystem alerts with severity levels (WARNING/ALARM) and component identification. Essential for real-time monitoring and incident response."
+command_logs = "Command execution history for client-initiated actions via WebSocket. Captures all incoming commands with session tracking, client type (LOCAL_NETWORK/CERTIFICATE_PROTECTED/LIRA), and full command details in JSONB format. Includes protocol version and subsystem routing information."
+health_metrics_raw = "Primary raw health status data from all system services. Records complete health state as nested JSONB with service/category hierarchy. Each entry contains health scores, percentages, status levels, and capability metrics. Updated frequently (sub-second) for real-time monitoring."
+health_metrics_1min_cagg = "One-minute aggregated health metrics transforming raw JSONB into columnar format. Tracks min/max/avg health values, failure indicators, and status ranges per service/category. First level of time-series downsampling for efficient queries."
+health_metrics_1hour_cagg = "One-hour aggregated health metrics built from 1-minute aggregates. Provides hourly summaries with sample counts for data density tracking. Optimized for medium-term trend analysis and dashboard displays."
+health_metrics_1day_cagg = "Daily aggregated health metrics built from hourly data. Provides long-term trending with minimal storage overhead. Includes sample counts to track data completeness and identify gaps in monitoring coverage."
+jetson_alerts = "(Table not present in current deployment - reserved for Jetson device monitoring)"
+jetson_metrics_raw = "(Table not present in current deployment - reserved for Jetson performance metrics)"
+jetson_metrics_1min = "(Table not present in current deployment - reserved for aggregated Jetson metrics)"
+jetson_metrics_1hour = "(Table not present in current deployment - reserved for aggregated Jetson metrics)"
+journal_logs = "System journal entries with 5-second time bucketing for storage optimization. Enriched with computed fields (severity, boot_id, unit) and importance flags. Contains full systemd journal data in JSONB format with efficient filtering indexes."
+meteo_metrics = "Meteorological sensor data from multiple system locations. Records temperature, humidity, and pressure readings from power supplies, compass, GPS, LRF, and lens subsystems. Used for environmental monitoring and thermal management."
+power_metrics = "Real-time power consumption data for system modules (S0-S7). Tracks voltage (V), current (A), power (W), operational status, and alarm conditions. Critical for power management and failure prediction."
+service_alerts = "Service health state change notifications. Generated when any service/category health transitions between levels (healthy/warning/critical). Provides human-readable messages for operational awareness and alerting systems."
+state_logs = "Complete system state snapshots from shared memory. Contains full Protocol Buffer state including GPS, LRF, rotary platform, cameras, and all subsystems. Large JSONB payloads used for replay, debugging, and state reconstruction."
+state_validation_alerts = "Protocol buffer validation failures for system state data. Captures invalid states with error paths, validation messages, and complete state context. Critical for detecting data corruption and integration issues."
+system_metrics = "High-level system resource metrics. Tracks disk space utilization percentage and recording mode status (Normal/Important). Used for capacity planning and system health monitoring."
+thermal_metrics = "Temperature readings from hardware thermal zones. Monitors CPU, GPU, and system thermal sensors for overheating detection. Includes sensor type identification for proper threshold application."
+validation_alerts = "Command validation failures from WebSocket clients. Records invalid commands with session context, error details, and complete command data. Essential for API compatibility monitoring and client debugging."
+redis_logs = "Application log streams from Redis message queues. Captures logs with severity levels, source identification (stream_key), and extracted message content. Provides centralized logging for all system components."
+pg_stat_statements = "PostgreSQL query performance statistics (extension table)"
+pg_stat_statements_info = "PostgreSQL query statistics metadata (extension table)"
+default = "Data storage"
+
+[column_purposes.exact]
+time = "Primary time-series timestamp (TimescaleDB)"
+message = "Human-readable description"
+level = "Status/condition indicator"
+severity = "Status/condition indicator"
+status = "Current operational status"
+component = "System component identifier"
+boot_id = "Reference identifier"
+machine_id = "Reference identifier"
+session_id = "Unique identifier/key"
+
+[column_purposes.pattern]
+id = "Unique identifier/key"
+json = "Flexible JSON data structure containing nested information"
+timestamp = "Date/time tracking"
+created_at = "Record creation timestamp"
+updated_at = "Record last update timestamp"
+is_ = "Flag/indicator"
+has_ = "Flag/indicator"
+
+[column_purposes.type]
+jsonb = "Flexible JSON data structure containing nested information"
+json = "Flexible JSON data structure containing nested information"
+uuid = "Globally unique identifier"
+boolean = "Flag/indicator value (true/false)"
+
+[specific_column_purposes]
+[specific_column_purposes.health_metrics_raw]
+time = "Timestamp when the health state snapshot was taken"
+state = "Complete health status information in JSONB format, structured by service and category with nested health metrics including health score, percentage, and status"
+
+[specific_column_purposes.redis_logs]
+time = "Timestamp when the log entry was received from Redis"
+data = "Complete log entry data in JSON format containing MESSAGE, redis_id, severity, timestamp_us, and other metadata"
+severity = "Log severity level (info, error, status, crash) for efficient filtering"
+stream_key = "Redis stream identifier in format 'logs:app:{binary_path}:{severity}' showing source application and severity"
+message = "Extracted log message content from data->>'MESSAGE' field, may include [[JON_WARNING]] or other prefixes"
+
+[specific_column_purposes.health_metrics_1min_cagg]
+time = "One-minute time bucket for aggregated health metrics"
+service = "Service identifier extracted from raw state data"
+category = "Category within service extracted from raw state data"
+min_health = "Minimum health value within the time bucket"
+max_health = "Maximum health value within the time bucket"
+avg_health = "Average health value within the time bucket"
+min_percentage = "Minimum health percentage within the time bucket"
+max_percentage = "Maximum health percentage within the time bucket"
+had_failure = "Boolean indicating if critical status occurred within the time bucket"
+min_status = "Minimum/worst status value within the time bucket"
+max_status = "Maximum/best status value within the time bucket"
+
+[specific_column_purposes.health_metrics_1hour_cagg]
+time = "One-hour time bucket for aggregated health metrics"
+service = "Service identifier from minute-level aggregation"
+category = "Category within service from minute-level aggregation"
+min_health = "Minimum health value within the hour"
+max_health = "Maximum health value within the hour"
+avg_health = "Average health value within the hour"
+min_percentage = "Minimum health percentage within the hour"
+max_percentage = "Maximum health percentage within the hour"
+had_failure = "Boolean indicating if critical status occurred within the hour"
+min_status = "Minimum/worst status value within the hour"
+max_status = "Maximum/best status value within the hour"
+sample_count = "Number of minute-level samples in this hour bucket"
+
+[specific_column_purposes.health_metrics_1day_cagg]
+time = "One-day time bucket for aggregated health metrics"
+service = "Service identifier from hour-level aggregation"
+category = "Category within service from hour-level aggregation"
+min_health = "Minimum health value within the day"
+max_health = "Maximum health value within the day"
+avg_health = "Average health value within the day"
+min_percentage = "Minimum health percentage within the day"
+max_percentage = "Maximum health percentage within the day"
+had_failure = "Boolean indicating if critical status occurred within the day"
+min_status = "Minimum/worst status value within the day"
+max_status = "Maximum/best status value within the day"
+sample_count = "Number of hour-level samples in this day bucket"
+
+[specific_column_purposes.service_alerts]
+time = "Timestamp when the service health alert was generated"
+service = "Identifier of the service reporting the health change"
+category = "Specific category within the service reporting the health change"
+level = "Alert severity level (info, warning, critical) based on health percentage"
+health = "Health percentage value at the time of the alert"
+message = "Human-readable description of the health change event"
+
+# Updated detailed column purposes for Jetson monitoring tables
+[specific_column_purposes.jetson_metrics_raw]
+time = "Timestamp when the metrics were collected from the Jetson device"
+metrics = "Complete JSON object containing all performance metrics including CPU/GPU temperatures, RAM utilization, CPU core usage percentages, and power consumption data"
+
+[specific_column_purposes.jetson_alerts]
+time = "Timestamp when the alert was triggered by the AlarmManager"
+alert_type = "Type of alert triggered (CPU_TEMP, GPU_TEMP, RAM_USAGE, CPU_LOAD, ALL_CORES_LOADED)"
+severity = "Alert severity level (typically CRITICAL for threshold violations)"
+message = "Detailed description of the alert condition with specific metric values"
+value = "Numeric value that triggered the alert (temperature in °C, load percentage, etc.)"
+
+[specific_column_purposes.jetson_metrics_1min]
+bucket = "One-minute time bucket for aggregated Jetson metrics"
+cpu1_avg = "Average utilization percentage for CPU core 1 within the time bucket"
+cpu2_avg = "Average utilization percentage for CPU core 2 within the time bucket"
+cpu3_avg = "Average utilization percentage for CPU core 3 within the time bucket"
+cpu4_avg = "Average utilization percentage for CPU core 4 within the time bucket"
+cpu5_avg = "Average utilization percentage for CPU core 5 within the time bucket"
+cpu6_avg = "Average utilization percentage for CPU core 6 within the time bucket"
+cpu7_avg = "Average utilization percentage for CPU core 7 within the time bucket"
+cpu8_avg = "Average utilization percentage for CPU core 8 within the time bucket"
+ram_avg = "Average RAM utilization (as a fraction from 0 to 1) within the time bucket"
+gpu_avg = "Average GPU utilization percentage within the time bucket"
+temp_cpu_avg = "Average CPU temperature in °C within the time bucket"
+temp_gpu_avg = "Average GPU temperature in °C within the time bucket"
+power_total_avg = "Average total power consumption in watts within the time bucket"
+sample_count = "Number of raw metric samples in this minute bucket"
+
+[specific_column_purposes.jetson_metrics_1hour]
+bucket = "One-hour time bucket for aggregated Jetson metrics"
+cpu1_avg = "Average utilization percentage for CPU core 1 within the hour"
+cpu2_avg = "Average utilization percentage for CPU core 2 within the hour"
+cpu3_avg = "Average utilization percentage for CPU core 3 within the hour"
+cpu4_avg = "Average utilization percentage for CPU core 4 within the hour"
+cpu5_avg = "Average utilization percentage for CPU core 5 within the hour"
+cpu6_avg = "Average utilization percentage for CPU core 6 within the hour"
+cpu7_avg = "Average utilization percentage for CPU core 7 within the hour"
+cpu8_avg = "Average utilization percentage for CPU core 8 within the hour"
+ram_avg = "Average RAM utilization (as a fraction from 0 to 1) within the hour"
+gpu_avg = "Average GPU utilization percentage within the hour"
+temp_cpu_avg = "Average CPU temperature in °C within the hour"
+temp_gpu_avg = "Average GPU temperature in °C within the hour"
+power_total_avg = "Average total power consumption in watts within the hour"
+sample_count = "Number of minute-level samples in this hour bucket"
+
+[specific_column_purposes.journal_logs]
+time = "Primary timestamp for journal entries (rounded to 5-second buckets for optimization)"
+data = "Full journal entry plus enrichments"
+severity = "Computed severity for efficient filtering"
+boot_id = "Generated from data->>'_BOOT_ID'"
+machine_id = "Generated from data->>'_MACHINE_ID'"
+unit = "Generated from data->>'_SYSTEMD_UNIT'"
+priority = "Generated from (data->>'PRIORITY')::integer"
+is_alert = "Generated from (data->>'is_alert')::boolean"
+is_important = "Generated from (data->>'is_important')::boolean"
+
+# New added specific column purposes for the service tables
+[specific_column_purposes.alerts]
+time = "Timestamp when the alert was generated"
+message = "Detailed description of the alert condition"
+level = "Alert severity level (WARNING, ALARM)"
+component = "System component or subsystem that triggered the alert"
+
+[specific_column_purposes.system_metrics]
+time = "Timestamp when system metrics were collected"
+disk_space_percent = "Percentage of disk space currently in use"
+recording_status = "Current recording mode (Normal/Important)"
+
+[specific_column_purposes.thermal_metrics]
+time = "Timestamp when temperature reading was taken"
+sensor = "Name of the thermal sensor (e.g., thermal_zone0)"
+sensor_type = "Type of sensor from sysfs"
+temperature = "Temperature value in degrees Celsius"
+
+[specific_column_purposes.power_metrics]
+time = "Timestamp when power readings were taken"
+module = "Power module identifier (S0-S7) representing different system power rails"
+voltage = "Measured voltage in Volts (typically ~12V for system modules)"
+current = "Measured current draw in Amperes"
+power = "Calculated power consumption in Watts (voltage × current)"
+is_on = "Boolean indicating if the power module is currently supplying power"
+has_alarm = "Boolean indicating if the module has triggered an alarm condition (overvoltage, overcurrent, or power failure)"
+
+[specific_column_purposes.meteo_metrics]
+time = "Timestamp when meteorological readings were taken"
+station = "Location of the meteo station (e.g., Power Supply, Compass, GPS)"
+temperature = "Temperature reading in degrees Celsius"
+humidity = "Humidity percentage"
+pressure = "Atmospheric pressure in Pascals"
+
+# Enhanced descriptions for WebSocket Command Service tables
+[specific_column_purposes.command_logs]
+time = "Timestamp when the command was received by the WebSocket Command Service"
+session_id = "Unique identifier for the client WebSocket session, incrementally assigned when connections are established"
+client_type = "Client application type identifier (local-network, certificate-protected, lira) specifying the security context and permissions"
+command = "Full command Protocol Buffer message stored as JSONB, containing all command parameters and metadata"
+
+[specific_column_purposes.validation_alerts]
+time = "Timestamp when the command validation error occurred"
+session_id = "Unique identifier for the client WebSocket session that sent the invalid command"
+client_type = "Client application type identifier that specifies the source context of the invalid command"
+command = "Full command data that failed validation, stored as JSONB for comprehensive error context"
+error_path = "Path to the specific field in the Protocol Buffer message that failed validation"
+error_msg = "Detailed validation error message explaining why the field value is invalid"
+level = "Error categorization level, typically set to 'validation_error' for protocol buffer validation failures"
+
+# Updated descriptions for WebSocket State Service tables
+[specific_column_purposes.state_logs]
+time = "Timestamp when the state snapshot was captured from shared memory"
+state = "Complete system state represented as a Protocol Buffer message and stored in JSONB format for post-analysis and debugging"
+
+[specific_column_purposes.state_validation_alerts]
+time = "Timestamp when the state validation error was detected"
+state = "Complete system state that failed validation, stored in JSONB format to provide context for troubleshooting"
+error_path = "Path to the specific field in the Protocol Buffer message that failed validation"
+error_msg = "Detailed validation error message from the protovalidate-go validator"
+level = "Error level/type, consistently set to 'validation_error' for all state validation failures"
+
+[index_purposes.name]
+gin = "Full-text or JSON content search"
+time_idx = "Time range queries and filtering (critical for TimescaleDB)"
+pkey = "Primary key lookup"
+
+[index_purposes.columns]
+time = "Time range queries and filtering (critical for TimescaleDB)"
+severity = "Filter by severity level"
+level = "Filter by importance level"
+status = "Filter by status"
+
+[index_purposes.multi]
+time_ = "Time-based filtering with additional dimensions"
+_time = "Time-based filtering with additional dimensions"
+service_category = "Filter by service and category for efficient health metrics analysis"
+error_ = "Multi-column filtering/grouping"
+
+[index_purposes.special]
+primary_key = "Primary key lookup"
+unique = "Enforce uniqueness/lookup by unique value"
+logs_severity = "Filter logs by severity"
+logs_alert = "Filter logs where is_alert = true"
+logs_important = "Filter logs where is_important = true"
+logs_composite = "Multi-dimensional filtering by severity and importance"
+logs_message_trgm = "Full-text search within message content"
+alerts_level = "Filter alerts by importance"
+idx_health_metrics_raw_gin = "GIN index for searching specific services or categories within health state JSONB"
+idx_health_metrics_raw_time = "Optimizes time-series queries on raw health data"
+idx_health_metrics_1min_time = "Optimizes time-based queries on minute-level health aggregates"
+idx_health_metrics_1min_service_category = "Enables quick filtering by service and category for minute-level health data"
+idx_health_metrics_1hour_time = "Optimizes time-based queries on hourly health aggregates"
+idx_health_metrics_1hour_service_category = "Enables quick filtering by service and category for hourly health data"
+idx_health_metrics_1day_time = "Optimizes time-based queries on daily health aggregates"
+idx_health_metrics_1day_service_category = "Enables quick filtering by service and category for daily health data"
+idx_service_alerts_service_category = "Enables filtering alerts by specific service and category combinations"
+idx_service_alerts_level_time = "Enables quick access to alerts by severity level within time periods"
+idx_service_alerts_time_service_category = "Optimizes time-based service alert queries with service and category filtering"
+
+idx_redis_logs_time_severity = "Optimizes queries filtering by time and severity level"
+idx_redis_logs_stream_lookup = "Enables efficient filtering by stream source and time"
+idx_redis_logs_errors = "Optimizes queries for error-level messages"
+idx_redis_logs_message_trgm = "Provides full-text search capabilities within log messages"
+redis_logs_time_idx = "Primary time-series index for TimescaleDB chunking and partitioning"
+
+# Added and enhanced Jetson-specific index purpose descriptions
+idx_metrics_time = "Primary time-series index for Jetson raw metrics, essential for TimescaleDB partitioning and time-range queries"
+idx_metrics_gin = "GIN index for searching within the JSONB metrics field to facilitate queries on specific performance parameters"
+idx_metrics_cpu_temp = "Specialized index for efficiently retrieving records by CPU temperature for monitoring and alerting"
+idx_metrics_gpu_temp = "Specialized index for efficiently retrieving records by GPU temperature for monitoring and alerting"
+idx_metrics_ram = "Specialized index for efficiently retrieving records by RAM usage for monitoring and alerting"
+idx_alerts_time = "Primary time-series index for Jetson alerts, essential for chronological alert analysis"
+idx_alerts_type_time = "Composite index for filtering alerts by type (CPU_TEMP, RAM_USAGE, etc.) in chronological order"
+idx_alerts_severity_time = "Composite index for filtering alerts by severity level in chronological order"
+
+# Added additional index purpose descriptions
+alerts_time_idx = "Optimizes time-based filtering of system alerts"
+thermal_metrics_time_idx = "Optimizes queries for temperature readings over time periods"
+power_metrics_time_idx = "Enables efficient retrieval of power module data across time ranges"
+meteo_metrics_time_idx = "Supports time-series analysis of meteorological measurements"
+system_metrics_time_idx = "Facilitates trend analysis of system resource usage over time"
+# Enhanced WebSocket Command Service index descriptions
+idx_command_logs_gin = "GIN index for efficiently searching within command JSONB data to find specific command types or parameters"
+idx_command_logs_time = "Optimizes time-based queries for command history analysis and auditing"
+idx_command_logs_session_client = "Enables efficient filtering of commands by session ID and client type for user-specific debugging"
+idx_validation_alerts_gin = "GIN index for searching within invalid command JSONB data to identify patterns in validation failures"
+idx_validation_alerts_time = "Optimizes time-based queries for validation error analysis and trend identification"
+idx_validation_alerts_error = "Facilitates analysis of common validation errors by error path and message for API improvement"
+# WebSocket State Service index descriptions
+idx_state_logs_gin = "GIN index for efficiently searching within state JSONB data for specific fields and values"
+idx_state_logs_time = "Optimizes time-based queries for retrieving historical system states"
+idx_state_validation_alerts_gin = "Enables searching within invalid state JSONB data for post-failure analysis"
+idx_state_validation_alerts_time = "Optimizes time-based queries for state validation error history"
+idx_state_validation_alerts_error = "Facilitates analysis of common validation error patterns by grouping similar error paths and messages"
+state_logs_time_idx = "Primary time-series index for the state logs table, essential for TimescaleDB chunking and partitioning"
+state_validation_alerts_time_idx = "Primary time-series index for the validation alerts table, essential for TimescaleDB chunking and partitioning"
+default = "General filtering/lookup"
+multi_column = "Multi-column filtering/grouping"
+
+[log_messages]
+found_tables = "Found {count} tables"
+retrieving_aggregates = "Retrieving all continuous aggregate relationships"
+retrieved_info = "Retrieved aggregate info: {chain_count} chains, {view_count} view definitions"
+error_aggregates = "Error retrieving continuous aggregate relationships: {error}"
+report_written = "Report written to {file}"
+html_report_generated = "HTML report generated: {file}"
+error_connecting = "Error connecting to the database: {error}"
+query_error = "Query error: {error}"
+unexpected_error = "Unexpected error during query: {error}"
+error_extension = "Error checking extension: {error}"
+error_schema = "Error checking schema: {error}"
+error_version = "Error getting TimescaleDB version: {error}"
+error_schema_table = "Error getting table schema for {table}: {error}"
+error_report = "Error generating report: {error}"
+
+[cli]
+description = "Generate a TimescaleDB database schema report"
+output_help = "Output file name (default: timescaledb_schema.md)"
+html_help = "Generate HTML report in addition to Markdown"
+html_only_help = "Generate only HTML report, no Markdown file"
+config_help = "Path to config file (YAML or JSON)"
+host_help = "Database host (default: localhost)"
+port_help = "Database port (default: 8094)"
+user_help = "Database user (default: jettison)"
+dbname_help = "Database name (default: jettison)"
+password_help = "Database password (not recommended, use config file instead)"
+verbose_help = "Enable verbose logging"
+config_not_found = "Config file not found: {path}"
+unsupported_format = "Unsupported config file format: {suffix}"
+error_loading_config = "Error loading config: {error}"
+connection_success = "Successfully connected to database {dbname} at {host}:{port}"
+report_success = "Schema report generated successfully: {file}"
+report_failure = "Failed to generate schema report"
+temp_failure = "Failed to generate temporary Markdown for HTML report"
+html_success = "HTML schema report generated successfully: {file}"
+verbose_hint = "Run with --verbose for more information on this error"
