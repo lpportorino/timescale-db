@@ -124,7 +124,7 @@ backup: check-running check-save-restore-image
 	@echo "✓ Backup completed"
 
 # Restore from backup - accepts BACKUP_DIR parameter
-restore:
+restore: check-save-restore-image
 	@if [ -z "$(BACKUP_DIR)" ]; then \
 		echo "Available backups:"; \
 		ls -la backups/; \
